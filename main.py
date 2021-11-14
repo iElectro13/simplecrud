@@ -1,14 +1,15 @@
-from flask import Flask
+from app import create_app
+from app.migrate import init_db
 
-app = Flask(__name__)
 
-
+app = create_app()
 
 @app.route('/')
 def index():
     return "Hola mundo"
 
-if __name__ == '__main__':
-    app.config['FLASK_APP'] = 'main.py'
-    app.env = 'development'
-    app.run(debug=True)
+@app.route('/database')
+def database():
+    init_db()
+    return "Base de datos creada correctamente"
+
